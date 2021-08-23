@@ -28,6 +28,9 @@ Route::get('/delete/{id}',  [empController::class, 'destroy']);
 Route::get('edit/{id}', [empController::class, 'show']);
 Route::post('edit/', [empController::class,'update']);
 
+
+Route::get('/send-email/{email}', [MailController::class,'sendEmail'] );
+
 Route::get('aa/{id}', function () {
     return view('employees.emp_text');
 });

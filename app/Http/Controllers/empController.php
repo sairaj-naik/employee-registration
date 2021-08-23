@@ -9,6 +9,8 @@ use DB;
 use App\Models\employee;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TestMail;
 class empController extends Controller
 {
     /**
@@ -86,6 +88,13 @@ class empController extends Controller
                      }
                     
                     $employee->save();
+                    
+                    $details = [
+                        'title' => 'Mail from ItSolutionStuff.com',
+                        'body' => 'This is for testing email using smtp'
+                    ];
+                    // $details='This mail is to inform'.$employee->name.'that, Now your Empoloyee of this Company.';
+                     Mail::to($employee->email)->send(new \App\Mail\TestMail($details));
                     return redirect('dashboard')->with('status',"Insert successfully");
                 }
                 catch(Exception $e){
